@@ -1,4 +1,5 @@
 import pickle
+import wordEmbeddings
 
 class qtp:
     '''
@@ -8,5 +9,6 @@ class qtp:
     def __init__(self):
         self.model = pickle.load(open('./sklearn/qtp_model.sav','rb'))
 
-    def predict(self,embeddings):
-      return self.model.predict(embeddings)
+    def predict(self,question):
+        embeddings =  wordEmbeddings.getWordEmbeddings(question)
+        return self.model.predict([embeddings])[0]
