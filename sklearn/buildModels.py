@@ -8,10 +8,10 @@ import pickle
 edf = pd.read_csv('./sklearn/entities.csv')
 qdf = pd.read_csv('./sklearn/questions.csv')
 
-X_e = edf.loc[:,edf.columns != 'class']
+X_e = edf.loc[:,edf.columns != 'class'].values
 Y_e = edf['class']
 
-X_q = qdf.loc[:,qdf.columns != 'class']
+X_q = qdf.loc[:,qdf.columns != 'class'].values
 Y_q = qdf['class']
 
 qtp =  RandomForestClassifier()

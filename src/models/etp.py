@@ -14,7 +14,3 @@ class etp:
     def predict(self,question):
         embeddings =  wordEmbeddings.getWordEmbeddings(question)
         return self.model.predict([embeddings])[0]
-
-e = etp()
-pred = e.predict("When is oof celebrated?")
-print(pred)
