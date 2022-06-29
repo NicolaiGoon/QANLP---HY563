@@ -17,8 +17,8 @@ class metrics:
         score = 0
         for p,g in zip(pred,gold):
             common = sum([1 if word in g.split(' ') else 0  for word in p.split(' ')])
-            precision = common/len(p.split(' '))
-            recall = common/len(g.split(' '))
+            precision = 1.0 * common/len(p.split(' '))
+            recall = 1.0 * common/len(g.split(' '))
             try:
                 f1 = 2 * (precision * recall) / (precision + recall)
             except:

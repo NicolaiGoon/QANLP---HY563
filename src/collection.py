@@ -1,4 +1,3 @@
-#%%
 import requests
 import random
 from metrics import metrics
@@ -6,7 +5,7 @@ from models.wordEmbeddings import getWordEmbeddings
 from WekaApi import createWeka
 import pandas as pd
 
-class collcetion:
+class collection:
 
     answerTypes = set(["factoid","definition","confirmation"])
     factoidTypes = set()
@@ -37,19 +36,18 @@ class collcetion:
         print(self.answerTypes)
         print(self.factoidTypes)
 
-
     def getRandomAnswers(self):
         '''
         returns the prediction for each answer randomly , along with the correct answers
         '''
-        results = []
-        gold = []
+        results = {'factoid':[],'definition':[],'confirmation':[]}
+        gold = {'factoid':[],'definition':[],'confirmation':[]}
         for topic in self.topics:
             text = topic["text"].split(" ")
             for q in topic["qa"]:
                 randomAnswer = random.choice(text)
-                results.append(randomAnswer)
-                gold.append(q["answer"].replace(" ",""))
+                results[q["type"]].append(randomAnswer)
+                gold[q["type"]].append(q["answer"])
         return results,gold
 
     def getFeaturesAndLabels(self):
@@ -113,22 +111,3 @@ class collcetion:
 
         Qdf.to_csv('./sklearn/questions.csv',index=None)
         edf.to_csv('./sklearn/entities.csv',index=None)
-
-
-        
-
-
-
-            
-
-c = collcetion()
-# pred,gold = ["nikos goun","fruit juice","apple"],["nikos goun 4os","fruit juice","orange"]
-# print("EM: "+str(metrics.exactMatch(pred,gold)))
-# print("F1: "+str(metrics.f1score(pred,gold)))
-
-# print(c.answerTypes)
-# print(c.factoidTypes)
-
-c.exportDataCsv()
-
-# %%
